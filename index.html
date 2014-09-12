@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3.js Demo</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/d3.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+
+<!-- Title page -->
+  <h1>Introduction<br>to<br>Graphing<br>with<br>D3.js</h1>
+  <h3>Jan Milosh&nbsp;&nbsp;<a href="http://janmilosh.com">janmilosh.com</a></h3>
+  <hr>
+
+
+<!-- What is D3.js -->
+  <h2>What is D3.js?</h2>
+  <p>D3.js <a href="http://d3js.org">(d3js.org)</a> stands for Data-Driven Documents, a JavaScript library for data visualization. It was created by Mike Bostock, based on his PhD studies in the Stanford University data visualization program. Mike now works at the New York Times who sponsors his open source work.</p>
+  <p>D3.js was designed for more than just graphs and charts. It's also capable of presenting maps, networks, and ordered lists. This demonstration will focus on creating a simple graph.</p>
+  <hr>
+
+
+<!-- Getting started -->
+  <h2>Getting Started</h2>
+  <p>First include the D3.js file which can be downloaded from <a href="d3js.org">d3js.org</a>, or linked through a CDN. I'll be using the downloaded file.</p>
+  <p>My graph will be created with a script embedded in this html page. The D3.js file will be included before the graph script.</p>
+  <p>We also need to create an SVG element to contain the graph.</p>
+  <p>Demo 1:</p>
+
+  
+  <svg id="demo-1"></svg>
+
+
+<!--Select, Append, and Chained Operators --><hr>
+  <h2>Select, Append, and Chained Operators</h2>
+  <p>D3 has a Select method for grabbing DOM elements. Once selected, you can apply operators to these elements.</p>
+  <p>Operators can then be used to get or set items such as attributes, properties, styles, text, and html.</p>
+  <p>D3 methods can be chained with a syntax much like jQuery.</p>
+  <p>Each operator in the chain returns a selection and the next operator in the chain operates on that selection.</p>
+  <p>Demo 2:</p>
+
+
+  <svg id="demo-2"></svg>
+  
+  <script>
+    var svgSelection = d3.select('#demo-2');
+
+    svgSelection.append('circle')
+      .attr("cx", 400)
+      .attr("cy", 200)
+      .attr("r", 100)
+      .style("fill", "white");
+
+    svgSelection.append('circle')
+      .attr("cx", 380)
+      .attr("cy", 180)
+      .attr("r", 50)
+      .style("fill", "orange");
+  </script>
+
+
+<!--  --><hr>
+
+
+
+
+</div>
+</body>
+</html>

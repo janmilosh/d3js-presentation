@@ -1,0 +1,104 @@
+/***********************************/
+/*       graph related styles      */
+/***********************************/
+
+svg {
+  width: 800px;
+  height: 400px;
+  background: #444;
+  margin-bottom: 30px;
+}
+
+
+/***********************************/
+/*      layout related styles      */
+/***********************************/
+
+body {
+  margin: 0;
+  padding: 50px 0;
+  background: white;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+ul {
+  padding: 0;
+}
+
+.wrapper {
+  width: 800px;
+  max-width: 100%;
+  margin: 30px auto;
+  padding: 0 15px;
+}
+
+/***********************************/
+/*       Font related styles       */
+/***********************************/
+
+h1, h2, h3, p, ul li, a, label {
+  font-family: helvetica, sans-serif;
+  font-weight: 300;
+}
+
+h1, h2, h3 {
+  text-align: center;
+  color: #02A52F;
+  margin-bottom: 30px;
+}
+
+p {
+  font-size: 26px;
+  color: #333;
+  line-height: 1.4;
+}
+
+h1 {
+  font-size: 80px;
+}
+
+h2 {
+  font-size: 60px;
+}
+
+h3 {
+  font-size: 40px;
+}
+
+h1, h2, h3, p {
+  margin: 0 0 30px;
+}
+
+a {
+  text-decoration: none;
+  color: #1804FF;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #1804FF;
+}
+
+hr {
+  margin-bottom: 100px;
+  margin-top: 120px;
+}
+
+

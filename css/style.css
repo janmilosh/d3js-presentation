@@ -1,16 +1,4 @@
 /***********************************/
-/*       graph related styles      */
-/***********************************/
-
-svg {
-  width: 800px;
-  height: 400px;
-  background: #444;
-  margin-bottom: 30px;
-}
-
-
-/***********************************/
 /*      layout related styles      */
 /***********************************/
 
@@ -79,7 +67,7 @@ h2 {
 }
 
 h3 {
-  font-size: 40px;
+  font-size: 36px;
 }
 
 h1, h2, h3, p {

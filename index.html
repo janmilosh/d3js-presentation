@@ -73,22 +73,45 @@
   </script>
 
 
-<!--Title --><hr>
+<!--Data--><hr>
   <h2>Data</h2>
-  <p>D3.js can handle data in many forms. These includes CSV, JSON, and arrays. Data can be accessed from an external file or be included in the same file as the graph code.</p>
-  <p>For this example we'll use data from a CSV file.</p>
+  <p>D3.js can handle data in many forms. These include CSV, TSV, JSON, and arrays. Data can be accessed from an external file or inline. For this example we'll use inline JSON data.</p>
+  <p>There are several methods important for adding data points to our graph:</p>
+  <p><code>selectAll('circle')</code> - selects all circles in our svg whether they exist yet or not.</p>
+  <p><code>data(jsonData)</code> - indicates what data to use.</p>
+  <p><code>enter()</code> - binds the data to the elements.</p>
+  <p><code>append('circle')</code> - appends the circles to the svg.</p>
   <p>Demo 3:</p>
 
 
   <svg id="demo-3"></svg>
   
   <script>
+    var jsonData = [
+      {x: 5, y: 10, color: 'red'},
+      {x: 8, y: 10, color: 'orange'},
+      {x: 9, y: 13, color: 'pink'},
+      {x: 16, y: 3, color: 'purple'},
+      {x: 6, y: 9, color: 'green'},
+      {x: 3, y: 4,color: 'yellow'},
+      {x: 7, y: 5, color: 'blue'}
+    ];
+
+    var svgSelection = d3.select('#demo-3');
+
+    var dataPoints = svgSelection
+      .selectAll('circle')
+      .data(jsonData)
+      .enter()
+      .append('circle');
+
+    var dataAttributes = dataPoints
+      .attr('cx', function (d) { return d.x*30 })
+      .attr('cy', function(d) { return d.y*30 })
+      .attr('r', 20)
+      .attr('fill', function(d) { return d.color });
 
   </script>
-<!--  --><hr>
-
-
-
 
 </div>
 </body>

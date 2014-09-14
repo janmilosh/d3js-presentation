@@ -17,7 +17,7 @@
 <!-- What is D3.js --><hr>
   <h2>What is D3.js?</h2>
   <p>D3.js <a href="http://d3js.org">(d3js.org)</a> stands for Data-Driven Documents, a JavaScript library for data visualization. It was created by Mike Bostock, based on his PhD studies in the Stanford University data visualization program. Mike now works at the New York Times who sponsors his open source work.</p>
-  <p>D3 was designed for more than just graphs and charts. It's also capable of presenting maps, networks, and ordered lists. This demonstration will focus on creating a simple graph.</p>
+  <p>D3 was designed for more than just graphs and charts. It's also capable of presenting maps, networks, and ordered lists. This demonstration will focus on creating a simple scatter plot.</p>
   <h3>DOM and Data Binding</h3>
   <p>D3 provides the ability to select DOM elements and bind data to them (any kind of element, including images and text).</p>
   <p>The magic of D3 comes from the ability to use data and web page elements together. Elements can be selected and their appearance modified to reflect differences in the data.</p>
@@ -34,19 +34,7 @@
 
   <script src="js/d3.min.js"></script>
 
-  <div id="demo-1"></div>
-
-  <script>
-    var height = 400;
-    var width = 750;
-    var svgColor = '#444';
-
-    var svgSelection = d3.select('#demo-1')
-      .append('svg')
-      .attr('height', height)
-      .attr('width', width)
-      .style('background', svgColor);
-  </script>
+  <svg id="demo-1" height="400" width="750" style="background: #444;"></svg>
 
 
 <!-- Select, Append, and Chained Operators --><hr>
@@ -136,6 +124,7 @@
 
 <!-- Scaling our Data --><hr>
   <h2>Scaling our Data</h2>
+  <p>We need to scale our data to fit the space available. D3 provides functions to help us do this. There are different scale types available, but for this example we'll use a linear scale. We need to specify a domain and range. The domain refers to the data and the range refers to the SVG space.</p>
   <p>Demo 4:</p>
 
 
@@ -156,6 +145,14 @@
     var width = 750;
     var svgColor = '#444';
 
+    var xScale = d3.scale.linear()//adds xScale
+      .domain([0, 16])
+      .range([0, width]);
+
+    var yScale = d3.scale.linear()//adds yScale
+      .domain([0, 13])
+      .range([0, height]);
+
     var svgSelection = d3.select('#demo-4')
       .append('svg')
       .attr('height', height)
@@ -169,9 +166,9 @@
       .append('circle');
 
     var dataAttributes = dataPoints
-      .attr('cx', function (d) { return d.x*30 })
-      .attr('cy', function(d) { return d.y*30 })
-      .attr('r', 20)
+      .attr('cx', function (d) { return xScale(d.x) }) //x values are scaled
+      .attr('cy', function(d) { return height - yScale(d.y) })//y values are scaled
+      .attr('r', 20)                                          //and measured from bottom
       .attr('fill', function(d) { return d.color });
   </script>
 

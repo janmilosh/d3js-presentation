@@ -32,17 +32,21 @@
   <p>Demo 1:</p>
 
 
-  <style type="text/css">
-    svg {
-      width: 750px;
-      height: 400px;
-      background: #444;
-      margin-bottom: 30px;
-    }
-  </style>
   <script src="js/d3.min.js"></script>
 
-  <svg id="demo-1"></svg>
+  <div id="demo-1"></div>
+
+  <script>
+    var height = 400;
+    var width = 750;
+    var svgColor = '#444';
+
+    var svgSelection = d3.select('#demo-1')
+      .append('svg')
+      .attr('height', height)
+      .attr('width', width)
+      .style('background', svgColor);
+  </script>
 
 
 <!-- Select, Append, and Chained Operators --><hr>
@@ -54,10 +58,18 @@
   <p>Demo 2:</p>
 
 
-  <svg id="demo-2"></svg>
+  <div id="demo-2"></div>
   
   <script>
-    var svgSelection = d3.select('#demo-2');
+    var height = 400;
+    var width = 750;
+    var svgColor = '#444';
+
+    var svgSelection = d3.select('#demo-2')
+      .append('svg')
+      .attr('height', height)
+      .attr('width', width)
+      .style('background', svgColor);
 
     svgSelection.append('circle')
       .attr("cx", 380)
@@ -85,7 +97,7 @@
   <p>Demo 3:</p>
 
 
-  <svg id="demo-3"></svg>
+  <div id="demo-3"></div>
   
   <script>
     var dataArray = [
@@ -98,7 +110,15 @@
       {x: 7, y: 5, color: 'blue'}
     ];
 
-    var svgSelection = d3.select('#demo-3');
+    var height = 400;
+    var width = 750;
+    var svgColor = '#444';
+
+    var svgSelection = d3.select('#demo-3')
+      .append('svg')
+      .attr('height', height)
+      .attr('width', width)
+      .style('background', svgColor);
 
     var dataPoints = svgSelection
       .selectAll('circle')
@@ -111,18 +131,15 @@
       .attr('cy', function(d) { return d.y })
       .attr('r', 20)
       .attr('fill', function(d) { return d.color });
-
   </script>
 
 
 <!-- Scaling our Data --><hr>
   <h2>Scaling our Data</h2>
-  
   <p>Demo 4:</p>
 
 
-  <svg id="demo-4"></svg>
-  <div id="div"></div>
+  <div id="demo-4"></div>
   
   <script>
     var dataArray = [
@@ -135,7 +152,15 @@
       {x: 7, y: 5, color: 'blue'}
     ];
 
-    var svgSelection = d3.select('#demo-4');
+    var height = 400;
+    var width = 750;
+    var svgColor = '#444';
+
+    var svgSelection = d3.select('#demo-4')
+      .append('svg')
+      .attr('height', height)
+      .attr('width', width)
+      .style('background', svgColor);
 
     var dataPoints = svgSelection
       .selectAll('circle')

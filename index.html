@@ -115,16 +115,16 @@
       .append('circle');
 
     var dataAttributes = dataPoints
-      .attr('cx', function (d) { return d.x })
-      .attr('cy', function(d) { return d.y })
-      .attr('r', 20)
-      .attr('fill', function(d) { return d.color });
+      .attr('cx', function (d) { return d.x; })
+      .attr('cy', function(d) { return d.y; })
+      .attr('r', 15)
+      .attr('fill', function(d) { return d.color; });
   </script>
 
 
 <!-- Scaling our Data --><hr>
   <h2>Scaling our Data</h2>
-  <p>We need to scale our data to fit the space available. D3 provides functions to help us do this. There are different scale types available, but for this example we'll use a linear scale. We need to specify a domain and range. The domain refers to the data and the range refers to the SVG space.</p>
+  <p>We need to scale our data to fit the space available. D3 provides functions to help us do this. There are different scale types available, but for this example we'll use a linear scale, <code>d3.scale.linear()</code>. We need to specify a domain and range. The domain refers to the data and the range refers to the SVG space.</p>
   <p>Demo 4:</p>
 
 
@@ -166,10 +166,136 @@
       .append('circle');
 
     var dataAttributes = dataPoints
-      .attr('cx', function (d) { return xScale(d.x) }) //x values are scaled
-      .attr('cy', function(d) { return height - yScale(d.y) })//y values are scaled
-      .attr('r', 20)                                          //and measured from bottom
+      .attr('cx', function (d) { return xScale(d.x); }) //x values are scaled
+      .attr('cy', function(d) { return height - yScale(d.y); })//y values are scaled
+      .attr('r', 15)                                          //and measured from bottom
+      .attr('fill', function(d) { return d.color; });
+  </script>
+
+
+<!-- Make data scaling more dynamic --><hr>
+  <h2>Make Data Scaling More Dynamic</h2>
+  <p>So far we've hard coded our domain, but it would be better to have D3 help us determine our domain by calculating the max and min for our data using the <code>d3.max()</code> and <code>d3.min()</code> methods.</p>
+  <p>Demo 5:</p>
+
+
+  <div id="demo-5"></div>
+  
+  <script>
+    var dataArray = [
+      {x: 5, y: 10, color: 'red'},
+      {x: 8, y: 10, color: 'orange'},
+      {x: 9, y: 13, color: 'pink'},
+      {x: 16, y: 3, color: 'purple'},
+      {x: 6, y: 9, color: 'green'},
+      {x: 3, y: 4,color: 'yellow'},
+      {x: 7, y: 5, color: 'blue'}
+    ];
+
+    var height = 400;
+    var width = 750;
+    var svgColor = '#444';
+
+    var maxX = d3.max(dataArray, function(d) { return d.x; });
+    var minX = d3.min(dataArray, function(d) { return d.x; });
+    var maxY = d3.max(dataArray, function(d) { return d.y; });
+    var minY = d3.min(dataArray, function(d) { return d.y; });
+
+    var xScale = d3.scale.linear() 
+      .domain([minX, maxX])
+      .range([0, width]);
+
+    var yScale = d3.scale.linear()
+      .domain([minY, maxY])
+      .range([0, height]);
+
+    var svgSelection = d3.select('#demo-5')
+      .append('svg')
+      .attr('height', height)
+      .attr('width', width)
+      .style('background', svgColor);
+
+    var dataPoints = svgSelection
+      .selectAll('circle')
+      .data(dataArray)
+      .enter()
+      .append('circle');
+
+    var dataAttributes = dataPoints
+      .attr('cx', function (d) { return xScale(d.x); })
+      .attr('cy', function(d) { return height - yScale(d.y); })
+      .attr('r', 15)
+      .attr('fill', function(d) { return d.color; });
+  </script>
+
+
+<!-- Add Labels to the Data Points --><hr>
+  <h2>Add Labels to the Data Points</h2>
+  <p>We can use the SVG text element to add labels to our data points.</p>
+  <p>Demo 6:</p>
+
+
+  <div id="demo-6"></div>
+  
+  <script>
+    var dataArray = [
+      {x: 5, y: 10, color: 'red'},
+      {x: 8, y: 10, color: 'orange'},
+      {x: 9, y: 13, color: 'pink'},
+      {x: 16, y: 3, color: 'purple'},
+      {x: 6, y: 9, color: 'green'},
+      {x: 3, y: 4,color: 'yellow'},
+      {x: 7, y: 5, color: 'blue'}
+    ];
+
+    var height = 400;
+    var width = 750;
+    var svgColor = '#444';
+
+    var maxX = d3.max(dataArray, function(d) {return d.x; });
+    var minX = d3.min(dataArray, function(d) {return d.x; });
+    var maxY = d3.max(dataArray, function(d) {return d.y; });
+    var minY = d3.min(dataArray, function(d) {return d.y; });
+
+    var xScale = d3.scale.linear()
+      .domain([minX, maxX])
+      .range([0, width]);
+
+    var yScale = d3.scale.linear()
+      .domain([minY, maxY])
+      .range([0, height]);
+
+    var svgSelection = d3.select('#demo-6')
+      .append('svg')
+      .attr('height', height)
+      .attr('width', width)
+      .style('background', svgColor);
+
+    var dataPoints = svgSelection
+      .selectAll('circle')
+      .data(dataArray)
+      .enter()
+      .append('circle');
+
+    var dataAttributes = dataPoints
+      .attr('cx', function (d) { return xScale(d.x); })
+      .attr('cy', function(d) { return height - yScale(d.y); })
+      .attr('r', 15)
       .attr('fill', function(d) { return d.color });
+
+    var text = svgSelection
+      .selectAll('text')
+      .data(dataArray)
+      .enter()
+      .append('text');
+
+    var dataLabels = text
+      .attr('x', function(d) { return xScale(d.x) + 15; })
+      .attr('y', function(d) { return height - yScale(d.y) - 15; })
+      .text( function (d) { return d.x + ', ' + d.y; })
+      .attr('font-family', 'helvetica')
+      .attr('font-size', '16px')
+      .attr('fill', function(d) { return d.color }); 
   </script>
 
 

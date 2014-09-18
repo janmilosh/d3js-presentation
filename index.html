@@ -12,6 +12,8 @@
 <!-- Title page -->
   <h1>Introduction<br>to<br>Graphing<br>with<br>D3.js</h1>
   <h3>Jan Milosh&nbsp;&nbsp;<a href="http://janmilosh.com">janmilosh.com</a></h3>
+  <p class="text-center">Clone the repo: <a href="https://github.com/janmilosh/d3js-presentation">github.com/janmilosh/d3js-presentation</a><br>
+  View online: <a href="http://janmilosh.github.io/d3js-presentation">janmilosh.github.io/d3js-presentation</a></p>
   
 
 <!-- What is D3.js --><hr>
@@ -603,7 +605,7 @@
       .attr('class', 'label')  
       .attr('x', (width/2))             
       .attr('y', height + margin.bottom/2)
-      .attr('dy', '1em')
+      .attr('dy', '16')
       .attr('text-anchor', 'middle')  
       .style('font-size', '16px') 
       .text('x-axis data');
@@ -613,7 +615,7 @@
       .attr('transform', 'rotate(-90)')
       .attr('y', 0 - margin.left/2)             
       .attr('x', 0 - height/2)
-      .attr('dy', '-0.5em')
+      .attr('dy', '-8')
       .attr('text-anchor', 'middle')  
       .style('font-size', '16px') 
       .text('y-axis data');
@@ -623,8 +625,10 @@
 <!-- References --><hr>
   <h2>References</h2>
   <p><a href="https://www.dashingd3js.com">www.dashingd3js.com</a> has a detailed tutorial (up to the point of adding axes).</p>
-  <p><a href="https://egghead.io/lessons/d3-margins">egghead.io</a> - especially their margins tutorial.</p>
+  <p><a href="https://egghead.io/lessons/d3-margins">egghead.io</a> (pro) - good method for margins.</p>
   <p><a href="http://www.d3noob.org/">www.d3noob.org</a> - good example for adding axis labels.</p>
+  <p><a href="http://chimera.labs.oreilly.com/books/1230000000345">Interactive Data Visualization for the Web</a> - O'Reilly book, free to read online.</p>
+  <p><a href="http://www.jeromecukier.net/blog/2011/08/11/d3-scales-and-color/">d3: scales, and color</a> - a very detailed explanation of scales.</p>  
 </div>
 </body>
 </html>

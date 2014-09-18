@@ -49,24 +49,24 @@
   <div id="demo-2"></div>
   
   <script>
-    var height = 400;
+    var height = 400; //We need the height and width as variables for later
     var width = 750;
     var svgColor = '#444';
 
-    var svgSelection = d3.select('#demo-2')
-      .append('svg')
+    var svgSelection = d3.select('#demo-2') // select our div
+      .append('svg')  // append the svg and define attributes and style
       .attr('height', height)
       .attr('width', width)
       .style('background', svgColor);
 
-    svgSelection.append('circle')
-      .attr("cx", 380)
+    svgSelection.append('circle') // do the same with a circle
+      .attr("cx", 380)            // but append it to the svg
       .attr("cy", 200)
       .attr("r", 100)
       .style("fill", "white");
 
-    svgSelection.append('circle')
-      .attr("cx", 360)
+    svgSelection.append('circle') // and another circle
+      .attr("cx", 360)            // order matters, last is on top
       .attr("cy", 180)
       .attr("r", 50)
       .style("fill", "orange");
@@ -88,7 +88,7 @@
   <div id="demo-3"></div>
   
   <script>
-    var dataArray = [
+    var dataArray = [               // Defines the new data, an array of objects
       {x: 5, y: 10, color: 'red'},
       {x: 8, y: 10, color: 'orange'},
       {x: 9, y: 13, color: 'pink'},
@@ -110,14 +110,14 @@
       .style('background', svgColor);
 
     var dataPoints = svgSelection
-      .selectAll('circle')
-      .data(dataArray)
-      .enter()
-      .append('circle');
+      .selectAll('circle') // selects all circles (whether they exist or not)
+      .data(dataArray)     // joins the data to the current selection (all circles)
+      .enter()             // joins the data to placeholders for the circles
+      .append('circle');   // appends the circles to the svg
 
-    var dataAttributes = dataPoints
-      .attr('cx', function (d) { return d.x; })
-      .attr('cy', function(d) { return d.y; })
+    var dataAttributes = dataPoints             // defines the circle attributes
+      .attr('cx', function (d) { return d.x; }) // when data array is used,
+      .attr('cy', function(d) { return d.y; })  // put it in an anonymous function
       .attr('r', 15)
       .attr('fill', function(d) { return d.color; });
   </script>
@@ -126,6 +126,7 @@
 <!-- Demo 4, Scaling our Data --><hr>
   <h2>Scaling our Data</h2>
   <p>We need to scale our data to fit the space available. D3 provides functions to help us do this. There are different scale types available, but for this example we'll use a linear scale, <code>d3.scale.linear()</code>. We need to specify a domain and range. The domain refers to the data and the range refers to the SVG space.</p>
+  <p>The origin of the SVG is in the upper left corner, but our graph origin will be in the lower left corner.</p>
   <p>Demo 4:</p>
 
 
@@ -147,13 +148,13 @@
     var width = 750;
     var svgColor = '#444';
 
-    var xScale = d3.scale.linear()//adds xScale
-      .domain([0, 16])
-      .range([0, width]);
+    var xScale = d3.scale.linear() // adds xScale
+      .domain([0, 16])             // range of x data
+      .range([0, width]);          // map x data to the svg
 
-    var yScale = d3.scale.linear()//adds yScale
-      .domain([0, 13])
-      .range([height, 0]);
+    var yScale = d3.scale.linear() // adds yScale
+      .domain([0, 13])             // range of y data
+      .range([height, 0]);         // map y data to the svg
 
     var svgSelection = d3.select('#demo-4')
       .append('svg')
@@ -168,16 +169,16 @@
       .append('circle');
 
     var dataAttributes = dataPoints
-      .attr('cx', function (d) { return xScale(d.x); }) //x values are scaled
-      .attr('cy', function(d) { return yScale(d.y); })//y values are scaled
-      .attr('r', 15)                                          //and measured from bottom
+      .attr('cx', function (d) { return xScale(d.x); }) // scales the x values
+      .attr('cy', function(d) { return yScale(d.y); })  // scales the y values
+      .attr('r', 15)
       .attr('fill', function(d) { return d.color; });
   </script>
 
 
 <!-- Demo 5, Make data scaling more dynamic --><hr>
   <h2>Make Data Scaling More Dynamic</h2>
-  <p>So far we've hard coded our domain, but it would be better to have D3 help us determine our domain by calculating the max and min for our data using the <code>d3.max()</code> and <code>d3.min()</code> methods.</p>
+  <p>So far we've hard-coded our domain, but it would be better to have D3 help us determine our domain by calculating the max and min for our data using the <code>d3.max()</code> and <code>d3.min()</code> methods.</p>
   <p>Demo 5:</p>
 
 
@@ -199,17 +200,17 @@
     var width = 750;
     var svgColor = '#444';
 
-    var maxX = d3.max(dataArray, function(d) { return d.x; });
-    var minX = d3.min(dataArray, function(d) { return d.x; });
+    var maxX = d3.max(dataArray, function(d) { return d.x; }); // Get the max and min
+    var minX = d3.min(dataArray, function(d) { return d.x; }); // values in the data
     var maxY = d3.max(dataArray, function(d) { return d.y; });
     var minY = d3.min(dataArray, function(d) { return d.y; });
 
     var xScale = d3.scale.linear() 
-      .domain([minX, maxX])
+      .domain([minX, maxX]) // Define the x domain by the max and min x values
       .range([0, width]);
 
     var yScale = d3.scale.linear()
-      .domain([minY, maxY])
+      .domain([minY, maxY]) // Define the y domain by the max and min y values
       .range([height, 0]);
 
     var svgSelection = d3.select('#demo-5')
@@ -234,7 +235,7 @@
 
 <!-- Demo 6, Add Labels to the Data Points --><hr>
   <h2>Add Labels to the Data Points</h2>
-  <p>We can use the SVG text element to add labels to our data points. The text is appended just like the other elements.</p>
+  <p>We can use the SVG text element to add labels to our data points. The text is appended just like the other elements. We add it last so it's on top.</p>
   <p>Demo 6:</p>
 
 
@@ -288,15 +289,15 @@
       .attr('fill', function(d) { return d.color });
 
     var text = svgSelection
-      .selectAll('text')
+      .selectAll('text') // The text is appended in the same manner as the circles
       .data(dataArray)
       .enter()
       .append('text');
 
     var dataLabels = text
-      .attr('x', function(d) { return xScale(d.x) + 15; })
-      .attr('y', function(d) { return yScale(d.y) - 15; })
-      .text( function (d) { return d.x + ', ' + d.y; })
+      .attr('x', function(d) { return xScale(d.x) + 15; }) // Add some x offset
+      .attr('y', function(d) { return yScale(d.y) - 15; }) // Add some y offset
+      .text( function (d) { return d.x + ', ' + d.y; })    // The text string
       .attr('font-family', 'helvetica')
       .attr('font-size', '16px')
       .attr('fill', function(d) { return d.color }); 
@@ -305,7 +306,7 @@
 
 <!-- Demo 7, Add Some Margin --><hr>
   <h2>Add Some Margin</h2>
-  <p>Our elements are hanging over the edge of our SVG, so we need some margin. This will also provide room for axes. We need to do this in a way that keeps our data normalized. Thanks to <a href="https://egghead.io/lessons/d3-margins">egghead.io</a> for the margins tutorial.</p>
+  <p>Our elements are hanging over the edge of our SVG, so we need some margin. This will also provide room for axes. We need to do this in a way that keeps our data normalized. </p>
   <p>Demo 7:</p>
 
 
@@ -343,10 +344,10 @@
 
     var svgSelection = d3.select('#demo-7')
       .append('svg')
-      .style('background', svgColor) //had to move this up as it needs to act on svg, not the group
+      .style('background', svgColor) //had to move this up as it needs to act on the svg, not the group
       .attr('height', height + margin.top + margin.bottom) //add margins to svg height
-      .attr('width', width + margin.left + margin.right) //add mirgins to svg width
-      .append('g')                                        //this is so we can translate
+      .attr('width', width + margin.left + margin.right)   //add margins to svg width
+      .append('g')                                         //this is so we can translate
       .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')'); //move the svg back into position
       
     var dataPoints = svgSelection
@@ -622,7 +623,8 @@
 <!-- References --><hr>
   <h2>References</h2>
   <p><a href="https://www.dashingd3js.com">www.dashingd3js.com</a> has a detailed tutorial (up to the point of adding axes).</p>
-
+  <p><a href="https://egghead.io/lessons/d3-margins">egghead.io</a> - especially their margins tutorial.</p>
+  <p><a href="http://www.d3noob.org/">www.d3noob.org</a> - good example for adding axis labels.</p>
 </div>
 </body>
 </html>

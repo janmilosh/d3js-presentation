@@ -377,9 +377,9 @@
   </script>
 
 
-<!-- Demo 8, Add Axes and Title --><hr>
-  <h2>Add Axes and Title</h2>
-  <p>The last elements that we'll add are the x and y axes and title.</p>
+<!-- Demo 8, Add Axes --><hr>
+  <h2>Add Axes</h2>
+  <p>Next we'll add the x and y axes.</p>
   <p>Demo 8:</p>
 
   <style type="text/css">
@@ -410,7 +410,7 @@
       {x: 7, y: 5, color: 'lightblue'}
     ];
 
-    var margin = {top: 75, right: 75, bottom: 50, left: 50};
+    var margin = {top: 50, right: 75, bottom: 50, left: 50};
     var height = 500 - margin.top - margin.bottom;
     var width = 750 - margin.left - margin.right;
     var svgColor = '#444';
@@ -481,14 +481,141 @@
     svgSelection.append('g')
       .attr('class', 'axis')
       .call(yAxis);
+  </script>
+
+
+<!-- Demo 9, Add Title and Axis Labels --><hr>
+  <h2>Add Title and Axis Labels</h2>
+  <p>The last elements that we'll add are the title and axis labels.</p>
+  <p>Demo 9:</p>
+
+  <style type="text/css">
+    .axis path, .axis line {
+      fill: none;
+      stroke: white;
+      stroke-width: 1px;
+      shape-rendering: crispEdges;
+    }
+
+    .tick text,
+    text.title,
+    text.label {
+      font-family: helvetica;
+      fill: white;
+    }
+  </style>
+  <div id="demo-9"></div>
+  
+  <script>
+    var dataArray = [
+      {x: 5, y: 10, color: 'red'},
+      {x: 8, y: 10, color: 'orange'},
+      {x: 9, y: 13, color: 'pink'},
+      {x: 16, y: 3, color: 'violet'},
+      {x: 6, y: 9, color: 'lightgreen'},
+      {x: 3, y: 4,color: 'yellow'},
+      {x: 12, y: 8,color: 'cyan'},
+      {x: 7, y: 5, color: 'lightblue'}
+    ];
+
+    var margin = {top: 75, right: 75, bottom: 75, left: 75};
+    var height = 500 - margin.top - margin.bottom;
+    var width = 750 - margin.left - margin.right;
+    var svgColor = '#444';
+
+    var maxX = d3.max(dataArray, function(d) { return d.x; });
+    var minX = d3.min(dataArray, function(d) { return d.x; });
+    var maxY = d3.max(dataArray, function(d) { return d.y; });
+    var minY = d3.min(dataArray, function(d) { return d.y; });
+
+    var xScale = d3.scale.linear()
+      .domain([minX - 1, maxX + 1])
+      .range([0, width]);
+
+    var yScale = d3.scale.linear()
+      .domain([minY - 1, maxY + 1])
+      .range([height, 0]);
+
+    var svgSelection = d3.select('#demo-9')
+      .append('svg')
+      .style('background', svgColor)
+      .attr('height', height + margin.top + margin.bottom)
+      .attr('width', width + margin.left + margin.right)
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+      
+    var dataPoints = svgSelection
+      .selectAll('circle')
+      .data(dataArray)
+      .enter()
+      .append('circle');
+
+    var dataAttributes = dataPoints
+      .attr('cx', function (d) { return xScale(d.x); })
+      .attr('cy', function(d) { return yScale(d.y); })
+      .attr('r', 10)
+      .attr('fill', function(d) { return d.color });
+
+    var text = svgSelection
+      .selectAll('text')
+      .data(dataArray)
+      .enter()
+      .append('text');
+
+    var dataLabels = text
+      .attr('x', function(d) { return xScale(d.x) + 10; })
+      .attr('y', function(d) { return yScale(d.y) - 10; })
+      .text( function (d) { return d.x + ', ' + d.y; })
+      .attr('font-family', 'helvetica')
+      .attr('font-size', '16px')
+      .attr('fill', function(d) { return d.color });
+
+
+    var xAxis = d3.svg.axis()
+      .scale(xScale)
+      .orient('bottom')
+      .ticks(8);
+
+    var yAxis = d3.svg.axis()
+      .scale(yScale)
+      .orient('left')
+      .ticks(5);
+    
+    svgSelection.append('g')
+      .attr('class', 'axis')
+      .attr('transform', 'translate(0, ' + height + ')')
+      .call(xAxis);
+
+    svgSelection.append('g')
+      .attr('class', 'axis')
+      .call(yAxis);
 
     svgSelection.append('text')
       .attr('class', 'title')  
-      .attr('x', (width / 2))             
-      .attr('y', 0 - (margin.top / 2))
+      .attr('x', (width/2))             
+      .attr('y', 0 - (margin.top/2))
       .attr('text-anchor', 'middle')  
       .style('font-size', '20px') 
       .text('The Graph Title');
+
+    svgSelection.append('text')
+      .attr('class', 'label')  
+      .attr('x', (width/2))             
+      .attr('y', height + margin.bottom/2)
+      .attr('dy', '1em')
+      .attr('text-anchor', 'middle')  
+      .style('font-size', '16px') 
+      .text('x-axis data');
+
+    svgSelection.append('text')
+      .attr('class', 'label')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 0 - margin.left/2)             
+      .attr('x', 0 - height/2)
+      .attr('dy', '-0.5em')
+      .attr('text-anchor', 'middle')  
+      .style('font-size', '16px') 
+      .text('y-axis data');
   </script>
 
 

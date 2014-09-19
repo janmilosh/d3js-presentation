@@ -36,7 +36,7 @@
 
   <script src="js/d3.min.js"></script>
 
-  <svg id="demo-1" height="400" width="750" style="background: #444;"></svg>
+  <svg id="demo-1" height="400" width="750" style="background: #222;"></svg>
 
 
 <!-- Demo 2, Select, Append, and Chained Operators --><hr>
@@ -45,6 +45,7 @@
   <p>Operators can then be used to get or set items such as attributes, properties, styles, text, and html.</p>
   <p>D3 methods can be chained with a syntax much like jQuery.</p>
   <p>Each operator in the chain returns a selection and the next operator in the chain operates on that selection.</p>
+  <p>Notice that order matters, the last item is on top.</p>
   <p>Demo 2:</p>
 
 
@@ -53,7 +54,7 @@
   <script>
     var height = 400; //We need the height and width as variables for later
     var width = 750;
-    var svgColor = '#444';
+    var svgColor = '#222';
 
     var svgSelection = d3.select('#demo-2') // select our div
       .append('svg')  // append the svg and define attributes and style
@@ -84,6 +85,7 @@
   <p><code>enter()</code> - joins the data to placeholders for the circles.</p>
   <p><code>append('circle')</code> - appends the circles to the SVG.</p>
   <p>Mike Bostock has a pretty good explanation of this <a href="http://bost.ocks.org/mike/join/">here</a>.</p>
+  <p>Note that when we use a data array, we need to reference the data from an anonymous function.</p>
   <p>Demo 3:</p>
 
 
@@ -103,7 +105,7 @@
 
     var height = 400;
     var width = 750;
-    var svgColor = '#444';
+    var svgColor = '#222';
 
     var svgSelection = d3.select('#demo-3')
       .append('svg')
@@ -119,7 +121,7 @@
 
     var dataAttributes = dataPoints             // defines the circle attributes
       .attr('cx', function (d) { return d.x; }) // when data array is used,
-      .attr('cy', function(d) { return d.y; })  // put it in an anonymous function
+      .attr('cy', function(d) { return d.y; })  // reference it from an anonymous function
       .attr('r', 15)
       .attr('fill', function(d) { return d.color; });
   </script>
@@ -148,7 +150,7 @@
 
     var height = 400;
     var width = 750;
-    var svgColor = '#444';
+    var svgColor = '#222';
 
     var xScale = d3.scale.linear() // adds xScale
       .domain([0, 16])             // range of x data
@@ -200,7 +202,7 @@
 
     var height = 400;
     var width = 750;
-    var svgColor = '#444';
+    var svgColor = '#222';
 
     var maxX = d3.max(dataArray, function(d) { return d.x; }); // Get the max and min
     var minX = d3.min(dataArray, function(d) { return d.x; }); // values in the data
@@ -237,7 +239,7 @@
 
 <!-- Demo 6, Add Labels to the Data Points --><hr>
   <h2>Add Labels to the Data Points</h2>
-  <p>We can use the SVG text element to add labels to our data points. The text is appended just like the other elements. We add it last so it's on top.</p>
+  <p>We can use the SVG text element to add labels to our data points. The text is appended just like the other elements. We add it last so it's on top. The position is offset slightly, otherwise it would be on top of our circles.</p>
   <p>Demo 6:</p>
 
 
@@ -257,7 +259,7 @@
 
     var height = 400;
     var width = 750;
-    var svgColor = '#444';
+    var svgColor = '#222';
 
     var maxX = d3.max(dataArray, function(d) { return d.x; });
     var minX = d3.min(dataArray, function(d) { return d.x; });
@@ -308,7 +310,7 @@
 
 <!-- Demo 7, Add Some Margin --><hr>
   <h2>Add Some Margin</h2>
-  <p>Our elements are hanging over the edge of our SVG, so we need some margin. This will also provide room for axes. We need to do this in a way that keeps our data normalized. </p>
+  <p>Our elements are hanging over the edge of our SVG, so we need some margin. This will also provide room for axes. We do this in a way that keeps our data normalized. </p>
   <p>Demo 7:</p>
 
 
@@ -329,7 +331,7 @@
     var margin = {top: 50, right: 75, bottom: 50, left: 50}; //sets the margin values
     var height = 400 - margin.top - margin.bottom; //subtracts top and bottom margins
     var width = 750 - margin.left - margin.right; //subtracts left and right margins
-    var svgColor = '#444';
+    var svgColor = '#222';
 
     var maxX = d3.max(dataArray, function(d) { return d.x; });
     var minX = d3.min(dataArray, function(d) { return d.x; });
@@ -346,12 +348,12 @@
 
     var svgSelection = d3.select('#demo-7')
       .append('svg')
-      .style('background', svgColor) //had to move this up as it needs to act on the svg, not the group
-      .attr('height', height + margin.top + margin.bottom) //add margins to svg height
-      .attr('width', width + margin.left + margin.right)   //add margins to svg width
-      .append('g')                                         //this is so we can translate
-      .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')'); //move the svg back into position
-      
+      .style('background', svgColor) // Had to move this up as it needs to act on the svg, not the group
+      .attr('height', height + margin.top + margin.bottom) // Add margins to svg height
+      .attr('width', width + margin.left + margin.right)   // Add margins to svg width
+      .append('g')                                         // This will group our circles
+      .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')'); // Moves the circles into position
+                                                                 // try inspect element in the browser to see this
     var dataPoints = svgSelection
       .selectAll('circle')
       .data(dataArray)
@@ -382,7 +384,7 @@
 
 <!-- Demo 8, Add Axes --><hr>
   <h2>Add Axes</h2>
-  <p>Next we'll add the x and y axes.</p>
+  <p>Next we'll add the x and y axes. We'll use the <code>axis()</code>, <code>scale()</code>, <code>orient()</code>, <code>ticks()</code>, and <code>call()</code> methods to create our axes.</p>
   <p>Demo 8:</p>
 
   <style type="text/css">
@@ -400,7 +402,8 @@
     }
   </style>
   <div id="demo-8"></div>
-  
+
+
   <script>
     var dataArray = [
       {x: 5, y: 10, color: 'red'},
@@ -416,7 +419,7 @@
     var margin = {top: 50, right: 75, bottom: 50, left: 50};
     var height = 500 - margin.top - margin.bottom;
     var width = 750 - margin.left - margin.right;
-    var svgColor = '#444';
+    var svgColor = '#222';
 
     var maxX = d3.max(dataArray, function(d) { return d.x; });
     var minX = d3.min(dataArray, function(d) { return d.x; });
@@ -424,11 +427,11 @@
     var minY = d3.min(dataArray, function(d) { return d.y; });
 
     var xScale = d3.scale.linear()
-      .domain([minX - 1, maxX + 1])
+      .domain([minX - 1, maxX + 1]) // -1 and +1 makes the graph a little bigger than our data
       .range([0, width]);
 
     var yScale = d3.scale.linear()
-      .domain([minY - 1, maxY + 1])
+      .domain([minY - 1, maxY + 1]) // -1 and +1 makes the graph a little bigger than our data
       .range([height, 0]);
 
     var svgSelection = d3.select('#demo-8')
@@ -476,20 +479,20 @@
       .orient('left') //we want the labels at the left
       .ticks(5); //This is the approximate number, d3 will make the numbers nice
     
-    svgSelection.append('g')
-      .attr('class', 'axis')
-      .attr('transform', 'translate(0, ' + height + ')')
-      .call(xAxis);
+    svgSelection.append('g') // use the group element for the x axis
+      .attr('class', 'axis') // add a class for styling
+      .attr('transform', 'translate(0, ' + height + ')') //translate in svg coordinates
+      .call(xAxis); // Run the axis function on the newly created and appended group
 
-    svgSelection.append('g')
-      .attr('class', 'axis')
-      .call(yAxis);
+    svgSelection.append('g') // use the group element for the y axis
+      .attr('class', 'axis') // same class again for styling
+      .call(yAxis); // Run the axis function on the newly created and appended group
   </script>
 
 
 <!-- Demo 9, Add Title and Axis Labels --><hr>
   <h2>Add Title and Axis Labels</h2>
-  <p>The last elements that we'll add are the title and axis labels.</p>
+  <p>The last elements that we'll add are the title and axis labels. These are simple text elements that are appended to the SVG and positioned using the height and margin variables. Some of the margins were increased to better accomodate the added text.</p>
   <p>Demo 9:</p>
 
   <style type="text/css">
@@ -524,7 +527,7 @@
     var margin = {top: 75, right: 75, bottom: 75, left: 75};
     var height = 500 - margin.top - margin.bottom;
     var width = 750 - margin.left - margin.right;
-    var svgColor = '#444';
+    var svgColor = '#222';
 
     var maxX = d3.max(dataArray, function(d) { return d.x; });
     var minX = d3.min(dataArray, function(d) { return d.x; });
@@ -573,7 +576,6 @@
       .attr('font-size', '16px')
       .attr('fill', function(d) { return d.color });
 
-
     var xAxis = d3.svg.axis()
       .scale(xScale)
       .orient('bottom')
@@ -593,27 +595,27 @@
       .attr('class', 'axis')
       .call(yAxis);
 
-    svgSelection.append('text')
-      .attr('class', 'title')  
-      .attr('x', (width/2))             
+    svgSelection.append('text') // Add title, simply append and define text 
+      .attr('class', 'title')   // attributes and position
+      .attr('x', (width/2))
       .attr('y', 0 - (margin.top/2))
-      .attr('text-anchor', 'middle')  
+      .attr('text-anchor', 'middle')
       .style('font-size', '20px') 
       .text('The Graph Title');
 
-    svgSelection.append('text')
-      .attr('class', 'label')  
-      .attr('x', (width/2))             
+    svgSelection.append('text') // Add x-axis label, similar to title
+      .attr('class', 'label')
+      .attr('x', (width/2))
       .attr('y', height + margin.bottom/2)
       .attr('dy', '16')
       .attr('text-anchor', 'middle')  
       .style('font-size', '16px') 
       .text('x-axis data');
 
-    svgSelection.append('text')
+    svgSelection.append('text') // Add y-axis label, similar to above, but with transform
       .attr('class', 'label')
       .attr('transform', 'rotate(-90)')
-      .attr('y', 0 - margin.left/2)             
+      .attr('y', 0 - margin.left/2)
       .attr('x', 0 - height/2)
       .attr('dy', '-8')
       .attr('text-anchor', 'middle')  

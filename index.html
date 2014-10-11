@@ -84,7 +84,7 @@
   <p><code>data(dataArray)</code> - this joins an array of data to the current selection.</p>
   <p><code>enter()</code> - joins the data to placeholders for the circles.</p>
   <p><code>append('circle')</code> - appends the circles to the SVG.</p>
-  <p>Mike Bostock has a pretty good explanation of this <a href="http://bost.ocks.org/mike/join/">here</a>.</p>
+  <p>Mike Bostock has a pretty good explanation of this in his article: <a href="http://bost.ocks.org/mike/join/">Thinking with Joins</a>.</p>
   <p>Note that when we use a data array, we need to reference the data from an anonymous function.</p>
   <p>Demo 3:</p>
 
@@ -329,8 +329,10 @@
     ];
 
     var margin = {top: 50, right: 75, bottom: 50, left: 50}; //sets the margin values
-    var height = 400 - margin.top - margin.bottom; //subtracts top and bottom margins
-    var width = 750 - margin.left - margin.right; //subtracts left and right margins
+    var svgHeight = 400;
+    var svgWidth = 750;
+    var height = svgHeight - margin.top - margin.bottom; //subtracts top and bottom margins
+    var width = svgWidth - margin.left - margin.right; //subtracts left and right margins
     var svgColor = '#222';
 
     var maxX = d3.max(dataArray, function(d) { return d.x; });
@@ -349,11 +351,11 @@
     var svgSelection = d3.select('#demo-7')
       .append('svg')
       .style('background', svgColor) // Had to move this up as it needs to act on the svg, not the group
-      .attr('height', height + margin.top + margin.bottom) // Add margins to svg height
-      .attr('width', width + margin.left + margin.right)   // Add margins to svg width
-      .append('g')                                         // This will group our circles
-      .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')'); // Moves the circles into position
-                                                                 // try inspect element in the browser to see this
+      .attr('height', svgHeight) // Add margins to svg height
+      .attr('width', svgWidth)   // Add margins to svg width
+      .append('g')                                         // This will append the group element
+      .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')'); // Moves the group into position
+                                                            // try inspect element in the browser to see this
     var dataPoints = svgSelection
       .selectAll('circle')
       .data(dataArray)
@@ -417,8 +419,10 @@
     ];
 
     var margin = {top: 50, right: 75, bottom: 50, left: 50};
-    var height = 500 - margin.top - margin.bottom;
-    var width = 750 - margin.left - margin.right;
+    var svgHeight = 500;
+    var svgWidth = 750;
+    var height = svgHeight - margin.top - margin.bottom;
+    var width = svgWidth - margin.left - margin.right;
     var svgColor = '#222';
 
     var maxX = d3.max(dataArray, function(d) { return d.x; });
@@ -437,8 +441,8 @@
     var svgSelection = d3.select('#demo-8')
       .append('svg')
       .style('background', svgColor)
-      .attr('height', height + margin.top + margin.bottom)
-      .attr('width', width + margin.left + margin.right)
+      .attr('height', svgHeight)
+      .attr('width', svgWidth)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
       
@@ -467,7 +471,6 @@
       .attr('font-family', 'helvetica')
       .attr('font-size', '16px')
       .attr('fill', function(d) { return d.color });
-
 
     var xAxis = d3.svg.axis() //create a generic axis function
       .scale(xScale) // pass in our scale
@@ -525,8 +528,10 @@
     ];
 
     var margin = {top: 75, right: 75, bottom: 75, left: 75};
-    var height = 500 - margin.top - margin.bottom;
-    var width = 750 - margin.left - margin.right;
+    var svgHeight = 500;
+    var svgWidth = 750;
+    var height = svgHeight - margin.top - margin.bottom;
+    var width = svgWidth - margin.left - margin.right;
     var svgColor = '#222';
 
     var maxX = d3.max(dataArray, function(d) { return d.x; });
@@ -545,8 +550,8 @@
     var svgSelection = d3.select('#demo-9')
       .append('svg')
       .style('background', svgColor)
-      .attr('height', height + margin.top + margin.bottom)
-      .attr('width', width + margin.left + margin.right)
+      .attr('height', svgHeight)
+      .attr('width', svgWidth)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
       

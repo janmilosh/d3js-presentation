@@ -330,8 +330,8 @@
     ];
 
     var margin = {top: 50, right: 75, bottom: 50, left: 50}; //sets the margin values
-    var svgHeight = 400;
-    var svgWidth = 750;
+    var svgHeight = 400; //new variable defines the outer SVG height
+    var svgWidth = 750;  //new variable defines the outer SVG width
     var height = svgHeight - margin.top - margin.bottom; //subtracts top and bottom margins
     var width = svgWidth - margin.left - margin.right; //subtracts left and right margins
     var svgColor = '#222';
@@ -352,8 +352,8 @@
     var svgSelection = d3.select('#demo-7')
       .append('svg')
       .style('background', svgColor) // Had to move this up as it needs to act on the svg, not the group
-      .attr('height', svgHeight) // Add margins to svg height
-      .attr('width', svgWidth)   // Add margins to svg width
+      .attr('height', svgHeight) // Graph size plus margin
+      .attr('width', svgWidth)   // Graph size plus margin
       .append('g')                                         // This will append the group element
       .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')'); // Moves the group into position
                                                             // try inspect element in the browser to see this

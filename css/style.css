@@ -56,6 +56,10 @@ h1, h2, h3 {
   margin-bottom: 30px;
 }
 
+strong {
+  font-weight: 400;
+}
+
 .text-center {
   text-align: center;
 }

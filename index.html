@@ -19,17 +19,18 @@
 <!-- What is D3.js --><hr>
   <h2>What is D3.js?</h2>
   <p>D3.js <a href="http://d3js.org">(d3js.org)</a> stands for Data-Driven Documents, a JavaScript library for data visualization. It was created by Mike Bostock, based on his PhD studies in the Stanford University data visualization program. Mike now works at the New York Times who sponsors his open source work.</p>
-  <p>D3 was designed for more than just graphs and charts. It's also capable of presenting maps, networks, and ordered lists. This demonstration will focus on creating a simple scatter plot.</p>
+  <p>D3 was designed for more than just graphs and charts. It's also capable of presenting maps, networks, and ordered lists. <strong>It was created for the efficient manipulation of documents based on data.</strong></p> 
+  <p>This demonstration will focus on creating a simple scatter plot.</p>
   <h3>DOM and Data Binding</h3>
   <p>D3 provides the ability to select DOM elements and bind data to them (any kind of element, including images and text).</p>
   <p>The magic of D3 comes from the ability to use data and web page elements together. Elements can be selected and their appearance modified to reflect differences in the data.</p>
-  <p>Note: D3 is designed for modern browsers that support HTML5 and CSS3 and requires utf-8 encoding.</p>
+  <p>Note: D3 makes use of web standards such as HTML5, CSS3, and SVG, so it is therefore designed for modern browsers. It also requires utf-8 encoding.</p>
 
 
 <!-- Demo 1, Getting started --><hr>
   <h2>Getting Started</h2>
-  <p>First include the D3.js file which can be downloaded from <a href="d3js.org">d3js.org</a>, or linked through a CDN. I'll be using the downloaded file.</p>
-  <p>My graph will be created with a script embedded in this html page. The D3.js file will be included before the graph script.</p>
+  <p>First include the d3.js file which can be downloaded from <a href="d3js.org">D3js.org</a>, or linked through a CDN. I'll be using the downloaded file.</p>
+  <p>My graph will be created with a script embedded in this html page. The d3.js file will be included before the graph script.</p>
   <p>We will be using SVG elements to create our graph, so we need to create an SVG canvas to contain it.</p>
   <p>Demo 1:</p>
 
@@ -41,7 +42,7 @@
 
 <!-- Demo 2, Select, Append, and Chained Operators --><hr>
   <h2>Select, Append, and Chained Operators</h2>
-  <p>D3.js has a <code>select()</code> method for grabbing DOM elements. Once selected, you can apply operators to these elements. This method selects the first element of that type.</p>
+  <p>D3 has a <code>select()</code> method for grabbing DOM elements. Once selected, you can apply operators to these elements. This method selects the first element of that type.</p>
   <p>Operators can then be used to get or set items such as attributes, properties, styles, text, and html.</p>
   <p>D3 methods can be chained with a syntax much like jQuery.</p>
   <p>Each operator in the chain returns a selection and the next operator in the chain operates on that selection.</p>
@@ -78,7 +79,7 @@
 
 <!-- Demo 3, Binding Data to the SVG --><hr>
   <h2>Binding Data to the SVG</h2>
-  <p>D3.js can load data from a number of types of external resources. These include CSV, TSV, JSON, and XML. We just need to ultimately construct an array from the data. For now we'll use an array of JSON objects.</p>
+  <p>D3 can load data from a number of types of external resources. These include CSV, TSV, JSON, and XML. We just need to ultimately construct an array from the data. For now we'll use an array of JSON objects.</p>
   <p>There are several methods required for for binding data points to our graph (I've chosen to represent the data with circles):</p>
   <p><code>selectAll('circle')</code> - selects all circles in our SVG and returns an empty array if there aren't any yet.</p>
   <p><code>data(dataArray)</code> - this joins an array of data to the current selection.</p>
